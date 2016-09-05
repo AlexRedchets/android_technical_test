@@ -33,15 +33,6 @@ public class GitHubAdapter extends RecyclerView.Adapter<GitHubAdapter.ViewHolder
         Log.i(TAG, "Adapter is updated");
     }
 
-    public Context getContext(){
-        return context;
-    }
-
-    public void clearAll(){
-        gitHubModelList.clear();
-        notifyDataSetChanged();
-    }
-
     @Override
     public int getItemCount() {
         return gitHubModelList != null ? gitHubModelList.size() : 0;

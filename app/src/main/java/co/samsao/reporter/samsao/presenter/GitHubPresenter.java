@@ -2,8 +2,6 @@ package co.samsao.reporter.samsao.presenter;
 
 import android.util.Log;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import co.samsao.reporter.clients.GitHubClient;
@@ -54,12 +52,8 @@ public class GitHubPresenter implements GitHubInterface.Presenter {
     }
 
     @Override
-    public void onItemClick(String name) {
-        GitHubModel model;
-    }
-
-    @Override
     public void fetchDataDB() {
+        Log.e(TAG, "Getting data from DB");
         view.onComplete(realm.where(GitHubModel.class).findAll());
     }
 

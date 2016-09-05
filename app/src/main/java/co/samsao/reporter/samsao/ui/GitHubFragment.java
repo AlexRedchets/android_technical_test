@@ -1,13 +1,13 @@
 package co.samsao.reporter.samsao.ui;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +25,6 @@ import co.samsao.reporter.models.GitHubModel;
 import co.samsao.reporter.samsao.GitHubAdapter;
 import co.samsao.reporter.samsao.GitHubInterface;
 import co.samsao.reporter.samsao.presenter.GitHubPresenter;
-import io.realm.Realm;
 
 public class GitHubFragment extends Fragment implements GitHubInterface.View, GitHubAdapter.ClickListener {
 
@@ -34,6 +33,8 @@ public class GitHubFragment extends Fragment implements GitHubInterface.View, Gi
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+
+    private static final String TAG = GitHubFragment.class.getSimpleName();
 
     GitHubAdapter adapter;
 
@@ -48,6 +49,8 @@ public class GitHubFragment extends Fragment implements GitHubInterface.View, Gi
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.e(TAG, "onCreateView started");
+
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
 
@@ -64,6 +67,7 @@ public class GitHubFragment extends Fragment implements GitHubInterface.View, Gi
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        Log.e(TAG, "onViewCreated started");
         super.onViewCreated(view, savedInstanceState);
         if (savedInstanceState == null){
             presenter.fetchData();

@@ -14,8 +14,9 @@ public interface GitHubInterface {
     }
 
     interface Presenter{
+
         void fetchData();
-        void onItemClick(String name);
+
         void fetchDataDB();
     }
 }
