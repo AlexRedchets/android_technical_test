@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recycler_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-</android.support.v7.widget.RecyclerView>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/samsao_logo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/samsao_logo"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="2dp">
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

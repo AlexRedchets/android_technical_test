@@ -2,11 +2,15 @@ package co.samsao.reporter.samsao.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -88,5 +92,15 @@ public class GitHubFragment extends Fragment implements GitHubInterface.View, Gi
     public void onClick(GitHubModel model) {
         Toast.makeText(getContext(), model.getName(), Toast.LENGTH_SHORT).show();
 
+        Bundle args = new Bundle();
+        args.putString("name", model.getName());
+        args.putString("language", model.getLanguage());
+        args.putString("branch", model.getDefault_branch());
+        args.putString("forks", model.getForks_count());
+
+        GitHubDialogFragment gitHubDialogFragment = new GitHubDialogFragment();
+        gitHubDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialog);
+        gitHubDialogFragment.setArguments(args);
+        gitHubDialogFragment.show(getActivity().getSupportFragmentManager(), "Dialog");
     }
 }
