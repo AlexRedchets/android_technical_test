@@ -35,6 +35,8 @@ public class GitHubDialogFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_dialog, container, false);
         ButterKnife.bind(this, view);
 
+        getDialog().setTitle(R.string.dialog_title);
+
         button.setOnClickListener(v -> getDialog().cancel());
 
         Bundle args = getArguments();

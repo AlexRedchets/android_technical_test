@@ -9,6 +9,8 @@ import co.samsao.reporter.dependencies.AppModule;
 import co.samsao.reporter.dependencies.DaggerNetComponent;
 import co.samsao.reporter.dependencies.NetComponent;
 import co.samsao.reporter.dependencies.NetModule;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class App extends Application {
 
@@ -23,6 +25,8 @@ public class App extends Application {
                 .appModule(new AppModule(this))
                 .netModule(new NetModule("https://api.github.com/users/"))
                 .build();
+
+        initRealmConfiguration();
     }
 
     public GitHubComponent getGitHubComponent(GitHubInterface.View view){
@@ -32,6 +36,13 @@ public class App extends Application {
 
     public void releaseGitHubComponent(){
         gitHubComponent = null;
+    }
+
+    private void initRealmConfiguration() {
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        Realm.setDefaultConfiguration(realmConfiguration);
     }
 
     public NetComponent getNetComponent(){

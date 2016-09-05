@@ -12,20 +12,22 @@ import co.samsao.reporter.models.GitHubModel;
 import co.samsao.reporter.samsao.GitHubInterface;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import io.realm.Realm;
 import retrofit2.Retrofit;
 
 public class GitHubPresenter implements GitHubInterface.Presenter {
 
     private Retrofit retrofit;
     private GitHubInterface.View view;
-    private List<GitHubModel> listRepos;
+    private Realm realm;
 
     private static final String TAG = GitHubPresenter.class.getSimpleName();
 
     @Inject
-    public GitHubPresenter(Retrofit retrofit, GitHubInterface.View view) {
+    public GitHubPresenter(Retrofit retrofit, GitHubInterface.View view, Realm realm) {
         this.retrofit = retrofit;
         this.view = view;
+        this.realm = realm;
     }
 
     public void fetchData(){
@@ -35,7 +37,14 @@ public class GitHubPresenter implements GitHubInterface.Presenter {
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(repos -> {
                             Log.e(TAG, "Successfully got data");
-                            listRepos = repos;
+
+                            realm.beginTransaction();
+                            if (realm != null){
+                                realm.deleteAll();
+                            }
+                            realm.copyToRealmOrUpdate(repos);
+                            realm.commitTransaction();
+
                             view.onComplete(repos);
                         },
                         throwable -> {
@@ -47,6 +56,11 @@ public class GitHubPresenter implements GitHubInterface.Presenter {
     @Override
     public void onItemClick(String name) {
         GitHubModel model;
+    }
+
+    @Override
+    public void fetchDataDB() {
+        view.onComplete(realm.where(GitHubModel.class).findAll());
     }
 
 }

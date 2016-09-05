@@ -1,7 +1,11 @@
 package co.samsao.reporter.models;
 
-public class GitHubModel {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
+public class GitHubModel extends RealmObject {
+
+    @PrimaryKey
     private Integer id;
     private String name;
     private String language;

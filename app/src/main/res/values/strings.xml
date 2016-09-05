@@ -6,5 +6,6 @@
     <string name="dialog_branch">Default branch: </string>
     <string name="dialog_forks">Forks count: </string>
     <string name="dialog_button">OK</string>
+    <string name="dialog_title">Repo Info</string>
 
 </resources>

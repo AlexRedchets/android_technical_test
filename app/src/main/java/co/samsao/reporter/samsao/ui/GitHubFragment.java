@@ -1,6 +1,7 @@
 package co.samsao.reporter.samsao.ui;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -8,9 +9,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -27,6 +25,7 @@ import co.samsao.reporter.models.GitHubModel;
 import co.samsao.reporter.samsao.GitHubAdapter;
 import co.samsao.reporter.samsao.GitHubInterface;
 import co.samsao.reporter.samsao.presenter.GitHubPresenter;
+import io.realm.Realm;
 
 public class GitHubFragment extends Fragment implements GitHubInterface.View, GitHubAdapter.ClickListener {
 
@@ -43,6 +42,7 @@ public class GitHubFragment extends Fragment implements GitHubInterface.View, Gi
         super.onCreate(savedInstanceState);
 
         resolveDependencies();
+
     }
 
     @Nullable
@@ -55,9 +55,9 @@ public class GitHubFragment extends Fragment implements GitHubInterface.View, Gi
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
         adapter = new GitHubAdapter(getContext(), this) ;
         recyclerView.setAdapter(adapter);
+
 
         return view;
     }
@@ -65,7 +65,12 @@ public class GitHubFragment extends Fragment implements GitHubInterface.View, Gi
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter.fetchData();
+        if (savedInstanceState == null){
+            presenter.fetchData();
+        }
+        else{
+            presenter.fetchDataDB();
+        }
     }
 
     private void resolveDependencies() {
@@ -90,7 +95,6 @@ public class GitHubFragment extends Fragment implements GitHubInterface.View, Gi
 
     @Override
     public void onClick(GitHubModel model) {
-        Toast.makeText(getContext(), model.getName(), Toast.LENGTH_SHORT).show();
 
         Bundle args = new Bundle();
         args.putString("name", model.getName());
