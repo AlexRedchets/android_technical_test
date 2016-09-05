@@ -81,11 +81,12 @@ public class GitHubFragment extends Fragment implements GitHubInterface.View, Gi
 
     @Override
     public void onError(String message) {
-
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void onClick(String name) {
-        Toast.makeText(getContext(), name, Toast.LENGTH_SHORT).show();
+    public void onClick(GitHubModel model) {
+        Toast.makeText(getContext(), model.getName(), Toast.LENGTH_SHORT).show();
+
     }
 }

@@ -80,13 +80,13 @@ public class GitHubAdapter extends RecyclerView.Adapter<GitHubAdapter.ViewHolder
 
         @Override
         public void onClick(View view) {
-            clickListener.onClick(gitHubModelList.get(getAdapterPosition()).getName());
+            clickListener.onClick(gitHubModelList.get(getAdapterPosition()));
         }
     }
 
     public interface ClickListener {
 
-        void onClick(String name);
+        void onClick(GitHubModel model);
     }
 
 }
