@@ -13,7 +13,7 @@ public class GitHubActivity extends AppCompatActivity {
 
           if (savedInstanceState == null){
               getSupportFragmentManager().beginTransaction()
-                      .add(R.id.activity_main, new MainFragment())
+                      .add(R.id.activity_main, new GitHubFragment())
                       .commit();
           }
   }

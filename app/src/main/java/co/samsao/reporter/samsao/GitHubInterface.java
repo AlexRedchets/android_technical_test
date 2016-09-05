@@ -8,7 +8,7 @@ public interface GitHubInterface {
 
     interface View{
 
-        void onComplete(List<GitHubModel> userData);
+        void onComplete(List<GitHubModel> data);
 
         void onError(String message);
     }
